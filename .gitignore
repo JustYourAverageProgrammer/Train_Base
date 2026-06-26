@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Local data & outputs
+datasets/
+results/
+docs/
+
+# IDE / OS clutter
+.DS_Store
+Thumbs.db

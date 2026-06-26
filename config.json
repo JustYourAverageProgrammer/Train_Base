@@ -1,0 +1,147 @@
+{
+    "dataset" : {
+        "dataset"        : "CIFAR10",
+        "val_split"     : 0.1
+    },
+
+    "dataloading": {
+        "batch_size"            : 256,
+        "num_workers"           : 4,
+        "shuffle_train_data"    : true
+    },
+
+    "transformations": {
+        "random_horizontal_flip": {
+            "enabled"   : true,
+            "p"         : null
+        },
+
+        "random_crop": {
+            "enabled"   : true,
+            "padding"   : 4
+        },
+
+        "color_jitter": {
+            "enabled"       : true,
+            "brightness"    : 0.4,
+            "contrast"      : 0.4,
+            "saturation"    : 0.4,
+            "hue"           : 0.1
+        },
+
+        "random_rotation": {
+            "enabled"       : true,
+            "degrees"       : 15
+        },
+
+        "random_erasing": {
+            "enabled"       : true,
+            "p"             : 0.5,
+            "scale"         : [0.02, 0.2],
+            "ratio"         : [0.3, 3.0],
+            "value"         : 0,
+            "inplace"       : null
+        }
+    },
+
+    "model" : {
+        "name"          : "argus",
+        "dropout"       : {
+            "type"      : "Dropout2d",
+            "p"         : 0.3,
+            "inplace"   : null
+        }
+    },
+
+    "training": {
+        "resume":  null,
+        "seed"  :  0,
+        "epochs": 100,
+        "learning_rate" : 1e-3,
+        "weight_decay"  : 1e-4,
+        "criterion": {
+            "name": "CrossEntropyLoss",
+            "params": {
+                "CrossEntropyLoss": {
+                    "label_smoothing"   : 0.1,
+                    "weight"            : null,
+                    "reduction"         : null
+                }
+            }
+        },
+        "scheduler": {
+            "name": "OneCycleLR",
+            "params": {
+                "StepLR": {
+                    "step_size"         : null,
+                    "gamma"             : null,
+                    "last_epoch"        : null
+                },
+                "CosineAnnealingLR": {
+                    "T_max"             : null,
+                    "eta_min"           : 1e-6,
+                    "last_epoch"        : null
+                },
+                "ReduceLROnPlateau": {
+                    "mode"              : "min",
+                    "factor"            : 0.5,
+                    "patience"          : 5,
+                    "threshold"         : null,
+                    "threshold_mode"    : null,
+                    "cooldown"          : 2,
+                    "min_lr"            : 1e-6,
+                    "eps"               : null
+                },
+                "OneCycleLR": {
+                    "max_lr"            : 0.01,
+                    "total_steps"       : null,
+                    "epochs"            : null,
+                    "steps_per_epoch"   : 391,
+                    "pct_start"         : 0.3,
+                    "anneal_strategy"   : null,
+                    "div_factor"        : null,
+                    "final_div_factor"  : null
+                },
+                "ExponentialLR": {
+                    "gamma"             : null,
+                    "last_epoch"        : null
+                }
+            }
+        },
+
+        "optimizer": {
+            "name": "AdamW",
+            "params": {
+                "Adam": {
+                    "lr"                : null,
+                    "betas"             : [0.9, 0.999],
+                    "eps"               : null,
+                    "weight_decay"      : null,
+                    "amsgrad"           : null
+                },
+                "AdamW": {
+                    "lr"                : null,
+                    "betas"             : null,
+                    "eps"               : null,
+                    "weight_decay"      : null,
+                    "amsgrad"           : null
+                },
+                "SGD": {
+                    "lr"                : null,
+                    "momentum"          : 0.9,
+                    "dampening"         : null,
+                    "weight_decay"      : null,
+                    "nesterov"          : true
+                },
+                "RMSprop": {
+                    "lr"                : null,
+                    "alpha"             : null,
+                    "eps"               : null,
+                    "weight_decay"      : null,
+                    "momentum"          : null,
+                    "centered"          : null
+                }
+            }
+        }
+    }
+ }
